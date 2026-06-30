@@ -1,0 +1,18 @@
+services:
+  web:
+    image: nginx:alpine
+    volumes:
+      - ./public:/usr/share/nginx/html:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  testcafe:
+    image: testcafe/testcafe:3.7.4
+    depends_on:
+      web:
+        condition: service_healthy
+    command: ["chromium:headless --no-sandbox --disable-gpu", "/tests/app.test.js"]
+    volumes:
+      - ./tests:/tests:ro
