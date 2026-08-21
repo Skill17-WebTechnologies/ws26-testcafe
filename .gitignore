@@ -1,0 +1,12 @@
+# Dependencies (only if you run TestCafe outside Docker)
+node_modules/
+
+# Test artifacts
+screenshots/
+reports/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
